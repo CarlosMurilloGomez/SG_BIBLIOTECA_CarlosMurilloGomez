@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SG_BIBLIOTECA_CarlosMurilloGomez
 {
-    public partial class Form1 : Form
+    public partial class FormInformes : Form
     {
-        public Form1()
+        public FormInformes()
         {
             InitializeComponent();
         }
