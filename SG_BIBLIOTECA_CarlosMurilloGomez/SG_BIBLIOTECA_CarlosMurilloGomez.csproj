@@ -180,6 +180,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>bdDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ComboItem.cs" />
     <Compile Include="FormAdministrarLibros.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -224,6 +225,9 @@
     <Compile Include="SOCIOS.cs">
       <DependentUpon>bdBiblioteca.tt</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="FormAdministrarLibros.resx">
+      <DependentUpon>FormAdministrarLibros.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </EmbeddedResource>

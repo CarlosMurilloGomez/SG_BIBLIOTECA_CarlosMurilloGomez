@@ -48,7 +48,7 @@
             this.salirToolStripMenuItem});
             this.menuStripPrincipal.Location = new System.Drawing.Point(0, 0);
             this.menuStripPrincipal.Name = "menuStripPrincipal";
-            this.menuStripPrincipal.Size = new System.Drawing.Size(800, 30);
+            this.menuStripPrincipal.Size = new System.Drawing.Size(800, 28);
             this.menuStripPrincipal.TabIndex = 0;
             this.menuStripPrincipal.Text = "menuStripPrincipal";
             // 
@@ -64,14 +64,14 @@
             // librosToolStripMenuItem
             // 
             this.librosToolStripMenuItem.Name = "librosToolStripMenuItem";
-            this.librosToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.librosToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
             this.librosToolStripMenuItem.Text = "Libros";
             this.librosToolStripMenuItem.Click += new System.EventHandler(this.librosToolStripMenuItem_Click);
             // 
             // sociosToolStripMenuItem
             // 
             this.sociosToolStripMenuItem.Name = "sociosToolStripMenuItem";
-            this.sociosToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.sociosToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
             this.sociosToolStripMenuItem.Text = "Socios";
             this.sociosToolStripMenuItem.Click += new System.EventHandler(this.sociosToolStripMenuItem_Click);
             // 
@@ -106,6 +106,7 @@
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStripPrincipal;
             this.Name = "FormPrincipal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormPrincipal";
             this.menuStripPrincipal.ResumeLayout(false);
             this.menuStripPrincipal.PerformLayout();

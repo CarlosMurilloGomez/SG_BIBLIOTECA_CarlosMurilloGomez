@@ -2425,7 +2425,7 @@ namespace SG_BIBLIOTECA_CarlosMurilloGomez.bdDataSetTableAdapters {
             this._adapter.InsertCommand = new global::Microsoft.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[GENEROS] ([Nombre]) VALUES (@Nombre);\r\nSELECT Id_genero, Nombr" +
-                "e FROM GENEROS WHERE (Id_genero = SCOPE_IDENTITY())";
+                "e FROM GENEROS WHERE (Id_genero = SCOPE_IDENTITY()) ORDER BY Nombre";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::Microsoft.Data.SqlClient.SqlParameter();
             param.ParameterName = "@Nombre";
@@ -2438,7 +2438,7 @@ namespace SG_BIBLIOTECA_CarlosMurilloGomez.bdDataSetTableAdapters {
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[GENEROS] SET [Nombre] = @Nombre WHERE (([Id_genero] = @Original_Id_" +
                 "genero) AND ([Nombre] = @Original_Nombre));\r\nSELECT Id_genero, Nombre FROM GENER" +
-                "OS WHERE (Id_genero = @Id_genero)";
+                "OS WHERE (Id_genero = @Id_genero) ORDER BY Nombre";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::Microsoft.Data.SqlClient.SqlParameter();
             param.ParameterName = "@Nombre";
@@ -2483,11 +2483,24 @@ namespace SG_BIBLIOTECA_CarlosMurilloGomez.bdDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::Microsoft.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new global::Microsoft.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new global::Microsoft.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Id_genero, Nombre FROM dbo.GENEROS";
+            this._commandCollection[0].CommandText = "SELECT Id_genero, Nombre FROM dbo.GENEROS order by Nombre";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::Microsoft.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT Id_genero, Nombre\r\nFROM     GENEROS\r\nWHERE  (Id_genero = @idgenero)\r\nORDER" +
+                " BY Nombre";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            global::Microsoft.Data.SqlClient.SqlParameter param = new global::Microsoft.Data.SqlClient.SqlParameter();
+            param.ParameterName = "@idgenero";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.SqlDbType = global::System.Data.SqlDbType.Int;
+            param.Size = 4;
+            param.IsNullable = true;
+            param.SourceColumn = "Id_genero";
+            this._commandCollection[1].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2509,6 +2522,32 @@ namespace SG_BIBLIOTECA_CarlosMurilloGomez.bdDataSetTableAdapters {
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual bdDataSet.GENEROSDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            bdDataSet.GENEROSDataTable dataTable = new bdDataSet.GENEROSDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByIdGenero(bdDataSet.GENEROSDataTable dataTable, int idgenero) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(idgenero));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual bdDataSet.GENEROSDataTable GetDataByIdGenero(int idgenero) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(idgenero));
             bdDataSet.GENEROSDataTable dataTable = new bdDataSet.GENEROSDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -2987,12 +3026,38 @@ SELECT Id_libro, ISBN, Titulo, Autor, Genero, Ejemplares, Caratula FROM LIBROS W
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::Microsoft.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new global::Microsoft.Data.SqlClient.SqlCommand[3];
             this._commandCollection[0] = new global::Microsoft.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT Id_libro, ISBN, Titulo, Autor, Genero, Ejemplares, Caratula FROM dbo.LIBRO" +
                 "S";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::Microsoft.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "DELETE FROM LIBROS\r\nWHERE  (Id_libro = @Original_Id_libro)";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            global::Microsoft.Data.SqlClient.SqlParameter param = new global::Microsoft.Data.SqlClient.SqlParameter();
+            param.ParameterName = "@Original_Id_libro";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.SqlDbType = global::System.Data.SqlDbType.Int;
+            param.Size = 4;
+            param.IsNullable = true;
+            param.SourceColumn = "Id_libro";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._commandCollection[1].Parameters.Add(param);
+            this._commandCollection[2] = new global::Microsoft.Data.SqlClient.SqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = "SELECT Autor, Caratula, Ejemplares, Genero, ISBN, Id_libro, Titulo FROM LIBROS WH" +
+                "ERE (ISBN = @isbn)";
+            this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
+            param = new global::Microsoft.Data.SqlClient.SqlParameter();
+            param.ParameterName = "@isbn";
+            param.DbType = global::System.Data.DbType.AnsiString;
+            param.SqlDbType = global::System.Data.SqlDbType.VarChar;
+            param.Size = 20;
+            param.IsNullable = true;
+            param.SourceColumn = "ISBN";
+            this._commandCollection[2].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3014,6 +3079,42 @@ SELECT Id_libro, ISBN, Titulo, Autor, Genero, Ejemplares, Caratula FROM LIBROS W
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual bdDataSet.LIBROSDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            bdDataSet.LIBROSDataTable dataTable = new bdDataSet.LIBROSDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByISBN(bdDataSet.LIBROSDataTable dataTable, string isbn) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            if ((isbn == null)) {
+                throw new global::System.ArgumentNullException("isbn");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(isbn));
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual bdDataSet.LIBROSDataTable GetDataByISBN(string isbn) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            if ((isbn == null)) {
+                throw new global::System.ArgumentNullException("isbn");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(isbn));
+            }
             bdDataSet.LIBROSDataTable dataTable = new bdDataSet.LIBROSDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -3212,6 +3313,30 @@ SELECT Id_libro, ISBN, Titulo, Autor, Genero, Ejemplares, Caratula FROM LIBROS W
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(string ISBN, string Titulo, string Autor, int Genero, int Ejemplares, byte[] Caratula, int Original_Id_libro, string Original_ISBN, string Original_Titulo, string Original_Autor, int Original_Genero, int Original_Ejemplares) {
             return this.Update(ISBN, Titulo, Autor, Genero, Ejemplares, Caratula, Original_Id_libro, Original_ISBN, Original_Titulo, Original_Autor, Original_Genero, Original_Ejemplares, Original_Id_libro);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, false)]
+        public virtual int DeleteById(int Original_Id_libro) {
+            global::Microsoft.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
+            command.Parameters[0].Value = ((int)(Original_Id_libro));
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
         }
     }
     
@@ -3530,12 +3655,38 @@ SELECT Id_prestamo, Socio, Libro, Fecha_prestamo, Fecha_devolucion FROM PRESTAMO
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::Microsoft.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new global::Microsoft.Data.SqlClient.SqlCommand[3];
             this._commandCollection[0] = new global::Microsoft.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT Id_prestamo, Socio, Libro, Fecha_prestamo, Fecha_devolucion FROM dbo.PREST" +
                 "AMOS";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::Microsoft.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "DELETE FROM PRESTAMOS\r\nWHERE  (Libro = @Original_Libro)";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            global::Microsoft.Data.SqlClient.SqlParameter param = new global::Microsoft.Data.SqlClient.SqlParameter();
+            param.ParameterName = "@Original_Libro";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.SqlDbType = global::System.Data.SqlDbType.Int;
+            param.Size = 4;
+            param.IsNullable = true;
+            param.SourceColumn = "Libro";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._commandCollection[1].Parameters.Add(param);
+            this._commandCollection[2] = new global::Microsoft.Data.SqlClient.SqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = "SELECT Id_prestamo, Socio, Libro, Fecha_prestamo, Fecha_devolucion\r\nFROM     PRES" +
+                "TAMOS\r\nWHERE  (Libro = @libro)";
+            this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
+            param = new global::Microsoft.Data.SqlClient.SqlParameter();
+            param.ParameterName = "@libro";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.SqlDbType = global::System.Data.SqlDbType.Int;
+            param.Size = 4;
+            param.IsNullable = true;
+            param.SourceColumn = "Libro";
+            this._commandCollection[2].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3557,6 +3708,32 @@ SELECT Id_prestamo, Socio, Libro, Fecha_prestamo, Fecha_devolucion FROM PRESTAMO
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual bdDataSet.PRESTAMOSDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            bdDataSet.PRESTAMOSDataTable dataTable = new bdDataSet.PRESTAMOSDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByLibro(bdDataSet.PRESTAMOSDataTable dataTable, int libro) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(libro));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual bdDataSet.PRESTAMOSDataTable GetDataByLibro(int libro) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(libro));
             bdDataSet.PRESTAMOSDataTable dataTable = new bdDataSet.PRESTAMOSDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -3723,6 +3900,30 @@ SELECT Id_prestamo, Socio, Libro, Fecha_prestamo, Fecha_devolucion FROM PRESTAMO
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(string Socio, int Libro, System.DateTime Fecha_prestamo, global::System.Nullable<global::System.DateTime> Fecha_devolucion, int Original_Id_prestamo, string Original_Socio, int Original_Libro, System.DateTime Original_Fecha_prestamo, global::System.Nullable<global::System.DateTime> Original_Fecha_devolucion) {
             return this.Update(Socio, Libro, Fecha_prestamo, Fecha_devolucion, Original_Id_prestamo, Original_Socio, Original_Libro, Original_Fecha_prestamo, Original_Fecha_devolucion, Original_Id_prestamo);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, false)]
+        public virtual int DeleteByLibro(int Original_Libro) {
+            global::Microsoft.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
+            command.Parameters[0].Value = ((int)(Original_Libro));
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
         }
     }
     
