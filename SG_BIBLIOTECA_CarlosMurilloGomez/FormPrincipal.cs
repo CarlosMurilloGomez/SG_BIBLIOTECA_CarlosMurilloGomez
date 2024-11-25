@@ -126,7 +126,7 @@ namespace SG_BIBLIOTECA_CarlosMurilloGomez
             DialogResult rs = MessageBox.Show("¿Desea salir de la aplicacion?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (rs == DialogResult.Yes)
             {
-                this.Close();
+                Application.Exit();
             }
             
         }
