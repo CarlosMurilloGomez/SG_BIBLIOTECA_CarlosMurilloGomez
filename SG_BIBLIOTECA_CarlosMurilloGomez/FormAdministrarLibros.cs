@@ -53,17 +53,17 @@ namespace SG_BIBLIOTECA_CarlosMurilloGomez
                 epCampos.SetError(iSBNTextBox, "El ISBN ya existe");
                 hayError = true;
             }
-            if (String.IsNullOrEmpty(iSBNTextBox.Text))
+            if (String.IsNullOrEmpty(iSBNTextBox.Text.Trim()))
             {
                 epCampos.SetError(iSBNTextBox, "Este campo esta vacio");
                 hayError = true;
             }
-            if (String.IsNullOrEmpty(tituloTextBox.Text))
+            if (String.IsNullOrEmpty(tituloTextBox.Text.Trim()))
             {
                 epCampos.SetError(tituloTextBox, "Este campo esta vacio");
                 hayError = true;
             }
-            if (String.IsNullOrEmpty(autorTextBox.Text))
+            if (String.IsNullOrEmpty(autorTextBox.Text.Trim()))
             {
                 epCampos.SetError(autorTextBox, "Este campo esta vacio");
                 hayError = true;
