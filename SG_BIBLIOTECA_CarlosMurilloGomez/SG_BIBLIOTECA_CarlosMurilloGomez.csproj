@@ -180,7 +180,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>bdDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ComboItem.cs" />
+    <Compile Include="Extensiones.cs" />
     <Compile Include="FormAdministrarLibros.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -245,6 +245,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormDniPrestar.resx">
       <DependentUpon>FormDniPrestar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormInformes.resx">
+      <DependentUpon>FormInformes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrestamos.resx">
       <DependentUpon>FormPrestamos.cs</DependentUpon>
