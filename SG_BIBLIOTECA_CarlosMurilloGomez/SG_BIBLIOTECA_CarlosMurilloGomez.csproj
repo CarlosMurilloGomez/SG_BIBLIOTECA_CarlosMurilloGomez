@@ -193,6 +193,12 @@
     <Compile Include="FormAdministrarSocios.Designer.cs">
       <DependentUpon>FormAdministrarSocios.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormDniPrestar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDniPrestar.Designer.cs">
+      <DependentUpon>FormDniPrestar.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormInformes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -236,6 +242,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormAdministrarSocios.resx">
       <DependentUpon>FormAdministrarSocios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDniPrestar.resx">
+      <DependentUpon>FormDniPrestar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPrestamos.resx">
+      <DependentUpon>FormPrestamos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
