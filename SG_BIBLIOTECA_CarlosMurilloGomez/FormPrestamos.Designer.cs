@@ -137,7 +137,7 @@
             // 
             this.btnPrestar.AutoSize = true;
             this.btnPrestar.Enabled = false;
-            this.btnPrestar.Location = new System.Drawing.Point(354, 388);
+            this.btnPrestar.Location = new System.Drawing.Point(354, 370);
             this.btnPrestar.Name = "btnPrestar";
             this.btnPrestar.Size = new System.Drawing.Size(82, 26);
             this.btnPrestar.TabIndex = 10;
