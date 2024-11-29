@@ -286,8 +286,8 @@
             // 
             // generoComboBox
             // 
-            this.generoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.lIBROSBindingSource, "Genero", true));
             this.generoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.gENEROSBindingSource, "Nombre", true));
+            this.generoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.lIBROSBindingSource, "Genero", true));
             this.generoComboBox.DataSource = this.gENEROSBindingSource;
             this.generoComboBox.DisplayMember = "Nombre";
             this.generoComboBox.FormattingEnabled = true;
