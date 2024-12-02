@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="bdEntityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="GENEROS">
+          <Key>
+            <PropertyRef Name="Id_genero" />
+          </Key>
+          <Property Name="Id_genero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LIBROS">
+          <Key>
+            <PropertyRef Name="Id_libro" />
+          </Key>
+          <Property Name="Id_libro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ISBN" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Titulo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Autor" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Genero" Type="int" Nullable="false" />
+          <Property Name="Ejemplares" Type="int" Nullable="false" />
+          <Property Name="Caratula" Type="image" />
+        </EntityType>
+        <EntityType Name="PRESTAMOS">
+          <Key>
+            <PropertyRef Name="Id_prestamo" />
+          </Key>
+          <Property Name="Id_prestamo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Socio" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="Libro" Type="int" Nullable="false" />
+          <Property Name="Fecha_prestamo" Type="date" Nullable="false" />
+          <Property Name="Fecha_devolucion" Type="date" />
+        </EntityType>
+        <EntityType Name="SOCIOS">
+          <Key>
+            <PropertyRef Name="Dni" />
+          </Key>
+          <Property Name="Dni" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Apellidos" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefono" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="Foto" Type="image" />
+          <Property Name="Fecha_nacimiento" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="libros_fk_gen">
+          <End Role="GENEROS" Type="Self.GENEROS" Multiplicity="1" />
+          <End Role="LIBROS" Type="Self.LIBROS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GENEROS">
+              <PropertyRef Name="Id_genero" />
+            </Principal>
+            <Dependent Role="LIBROS">
+              <PropertyRef Name="Genero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="prestamos_fk_lib">
+          <End Role="LIBROS" Type="Self.LIBROS" Multiplicity="1" />
+          <End Role="PRESTAMOS" Type="Self.PRESTAMOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LIBROS">
+              <PropertyRef Name="Id_libro" />
+            </Principal>
+            <Dependent Role="PRESTAMOS">
+              <PropertyRef Name="Libro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="prestamos_fk_soc">
+          <End Role="SOCIOS" Type="Self.SOCIOS" Multiplicity="1" />
+          <End Role="PRESTAMOS" Type="Self.PRESTAMOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SOCIOS">
+              <PropertyRef Name="Dni" />
+            </Principal>
+            <Dependent Role="PRESTAMOS">
+              <PropertyRef Name="Socio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bdEntityModelStoreContainer">
+          <EntitySet Name="GENEROS" EntityType="Self.GENEROS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LIBROS" EntityType="Self.LIBROS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRESTAMOS" EntityType="Self.PRESTAMOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SOCIOS" EntityType="Self.SOCIOS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="libros_fk_gen" Association="Self.libros_fk_gen">
+            <End Role="GENEROS" EntitySet="GENEROS" />
+            <End Role="LIBROS" EntitySet="LIBROS" />
+          </AssociationSet>
+          <AssociationSet Name="prestamos_fk_lib" Association="Self.prestamos_fk_lib">
+            <End Role="LIBROS" EntitySet="LIBROS" />
+            <End Role="PRESTAMOS" EntitySet="PRESTAMOS" />
+          </AssociationSet>
+          <AssociationSet Name="prestamos_fk_soc" Association="Self.prestamos_fk_soc">
+            <End Role="SOCIOS" EntitySet="SOCIOS" />
+            <End Role="PRESTAMOS" EntitySet="PRESTAMOS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bdEntityModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="GENEROS">
+          <Key>
+            <PropertyRef Name="Id_genero" />
+          </Key>
+          <Property Name="Id_genero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="LIBROS" Relationship="Self.libros_fk_gen" FromRole="GENEROS" ToRole="LIBROS" />
+        </EntityType>
+        <EntityType Name="LIBROS">
+          <Key>
+            <PropertyRef Name="Id_libro" />
+          </Key>
+          <Property Name="Id_libro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ISBN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Titulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Autor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Genero" Type="Int32" Nullable="false" />
+          <Property Name="Ejemplares" Type="Int32" Nullable="false" />
+          <Property Name="Caratula" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="GENEROS" Relationship="Self.libros_fk_gen" FromRole="LIBROS" ToRole="GENEROS" />
+          <NavigationProperty Name="PRESTAMOS" Relationship="Self.prestamos_fk_lib" FromRole="LIBROS" ToRole="PRESTAMOS" />
+        </EntityType>
+        <EntityType Name="PRESTAMOS">
+          <Key>
+            <PropertyRef Name="Id_prestamo" />
+          </Key>
+          <Property Name="Id_prestamo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Socio" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Libro" Type="Int32" Nullable="false" />
+          <Property Name="Fecha_prestamo" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Fecha_devolucion" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="LIBROS" Relationship="Self.prestamos_fk_lib" FromRole="PRESTAMOS" ToRole="LIBROS" />
+          <NavigationProperty Name="SOCIOS" Relationship="Self.prestamos_fk_soc" FromRole="PRESTAMOS" ToRole="SOCIOS" />
+        </EntityType>
+        <EntityType Name="SOCIOS">
+          <Key>
+            <PropertyRef Name="Dni" />
+          </Key>
+          <Property Name="Dni" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefono" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Foto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Fecha_nacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="PRESTAMOS" Relationship="Self.prestamos_fk_soc" FromRole="SOCIOS" ToRole="PRESTAMOS" />
+        </EntityType>
+        <Association Name="libros_fk_gen">
+          <End Role="GENEROS" Type="Self.GENEROS" Multiplicity="1" />
+          <End Role="LIBROS" Type="Self.LIBROS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GENEROS">
+              <PropertyRef Name="Id_genero" />
+            </Principal>
+            <Dependent Role="LIBROS">
+              <PropertyRef Name="Genero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="prestamos_fk_lib">
+          <End Role="LIBROS" Type="Self.LIBROS" Multiplicity="1" />
+          <End Role="PRESTAMOS" Type="Self.PRESTAMOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LIBROS">
+              <PropertyRef Name="Id_libro" />
+            </Principal>
+            <Dependent Role="PRESTAMOS">
+              <PropertyRef Name="Libro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="prestamos_fk_soc">
+          <End Role="SOCIOS" Type="Self.SOCIOS" Multiplicity="1" />
+          <End Role="PRESTAMOS" Type="Self.PRESTAMOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SOCIOS">
+              <PropertyRef Name="Dni" />
+            </Principal>
+            <Dependent Role="PRESTAMOS">
+              <PropertyRef Name="Socio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bd_bibliotecaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GENEROS" EntityType="Self.GENEROS" />
+          <EntitySet Name="LIBROS" EntityType="Self.LIBROS" />
+          <EntitySet Name="PRESTAMOS" EntityType="Self.PRESTAMOS" />
+          <EntitySet Name="SOCIOS" EntityType="Self.SOCIOS" />
+          <AssociationSet Name="libros_fk_gen" Association="Self.libros_fk_gen">
+            <End Role="GENEROS" EntitySet="GENEROS" />
+            <End Role="LIBROS" EntitySet="LIBROS" />
+          </AssociationSet>
+          <AssociationSet Name="prestamos_fk_lib" Association="Self.prestamos_fk_lib">
+            <End Role="LIBROS" EntitySet="LIBROS" />
+            <End Role="PRESTAMOS" EntitySet="PRESTAMOS" />
+          </AssociationSet>
+          <AssociationSet Name="prestamos_fk_soc" Association="Self.prestamos_fk_soc">
+            <End Role="SOCIOS" EntitySet="SOCIOS" />
+            <End Role="PRESTAMOS" EntitySet="PRESTAMOS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bdEntityModelStoreContainer" CdmEntityContainer="bd_bibliotecaEntities">
+          <EntitySetMapping Name="GENEROS">
+            <EntityTypeMapping TypeName="bdEntityModel.GENEROS">
+              <MappingFragment StoreEntitySet="GENEROS">
+                <ScalarProperty Name="Id_genero" ColumnName="Id_genero" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LIBROS">
+            <EntityTypeMapping TypeName="bdEntityModel.LIBROS">
+              <MappingFragment StoreEntitySet="LIBROS">
+                <ScalarProperty Name="Id_libro" ColumnName="Id_libro" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Autor" ColumnName="Autor" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="Ejemplares" ColumnName="Ejemplares" />
+                <ScalarProperty Name="Caratula" ColumnName="Caratula" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRESTAMOS">
+            <EntityTypeMapping TypeName="bdEntityModel.PRESTAMOS">
+              <MappingFragment StoreEntitySet="PRESTAMOS">
+                <ScalarProperty Name="Id_prestamo" ColumnName="Id_prestamo" />
+                <ScalarProperty Name="Socio" ColumnName="Socio" />
+                <ScalarProperty Name="Libro" ColumnName="Libro" />
+                <ScalarProperty Name="Fecha_prestamo" ColumnName="Fecha_prestamo" />
+                <ScalarProperty Name="Fecha_devolucion" ColumnName="Fecha_devolucion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SOCIOS">
+            <EntityTypeMapping TypeName="bdEntityModel.SOCIOS">
+              <MappingFragment StoreEntitySet="SOCIOS">
+                <ScalarProperty Name="Dni" ColumnName="Dni" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="Fecha_nacimiento" ColumnName="Fecha_nacimiento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
