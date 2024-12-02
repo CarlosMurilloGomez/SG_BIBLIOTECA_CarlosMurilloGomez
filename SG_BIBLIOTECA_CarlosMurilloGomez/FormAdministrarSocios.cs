@@ -93,25 +93,17 @@ namespace SG_BIBLIOTECA_CarlosMurilloGomez
         {
             if (dgvSocios.SelectedRows.Count > 0)
             {
-                using (bd_bibliotecaEntities objBD = new bd_bibliotecaEntities())
-                {
-                    SOCIOS socio = objBD.SOCIOS.Find(dgvSocios.SelectedRows[0].Cells["Dni"].Value);
-                    dni = socio.Dni;
-                    nombre = socio.Nombre;
-                    apellidos = socio.Apellidos;
-                    telefono = socio.Telefono;
-                    email = socio.Email;
-                    fechaNac = socio.Fecha_nacimiento;
-                    foto = socio.Foto;
+                
+                    dni = dgvSocios.SelectedRows[0].Cells["Dni"].Value.ToString();
 
                     FormSocio form = new FormSocio();
-                    form.formAdmin = this;
+                    form.formAdminDni = dni;
                     form.labelVisible = true;
                     if (form.ShowDialog() == DialogResult.Cancel)
                     {
                         cargarSocios();
                     }
-                }
+                
             }
             else
             {
@@ -122,7 +114,6 @@ namespace SG_BIBLIOTECA_CarlosMurilloGomez
         private void btnAdd_Click(object sender, EventArgs e)
         {
             FormSocio form = new FormSocio();
-            form.formAdmin = this;
             form.labelVisible = false;
             if (form.ShowDialog() == DialogResult.Cancel)
             {

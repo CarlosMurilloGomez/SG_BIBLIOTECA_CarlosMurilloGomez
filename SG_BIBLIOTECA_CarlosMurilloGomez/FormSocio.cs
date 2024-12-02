@@ -14,7 +14,7 @@ namespace SG_BIBLIOTECA_CarlosMurilloGomez
 {
     public partial class FormSocio : Form
     {
-        public FormAdministrarSocios formAdmin {  set; get; }
+        public String formAdminDni { set; get; }
         public bool labelVisible {  set; get; }
         public FormSocio()
         {
@@ -26,17 +26,21 @@ namespace SG_BIBLIOTECA_CarlosMurilloGomez
             tbxDni.Visible = !labelVisible;
             if (labelVisible)
             {
-                lbDniContenido.Text = formAdmin.dni;
-                tbxNombre.Text = formAdmin.nombre;
-                tbxApellidos.Text = formAdmin.apellidos;
-                tbxTelefono.Text = formAdmin.telefono;
-                tbxEmail.Text = formAdmin.email;
-                dtpFechaNac.Value = formAdmin.fechaNac;
-                if (formAdmin.foto != null && formAdmin.foto.Length > 0)
+                using (bd_bibliotecaEntities objBD = new bd_bibliotecaEntities())
                 {
-                    using (MemoryStream ms = new MemoryStream(formAdmin.foto))
+                    SOCIOS socio = objBD.SOCIOS.Find(formAdminDni);
+                    lbDniContenido.Text = formAdminDni;
+                    tbxNombre.Text = socio.Nombre;
+                    tbxApellidos.Text = socio.Apellidos;
+                    tbxTelefono.Text = socio.Telefono;
+                    tbxEmail.Text = socio.Email;
+                    dtpFechaNac.Value = socio.Fecha_nacimiento;
+                    if (socio.Foto != null && socio.Foto.Length > 0)
                     {
-                        pbxFoto.Image = Image.FromStream(ms);
+                        using (MemoryStream ms = new MemoryStream(socio.Foto))
+                        {
+                            pbxFoto.Image = Image.FromStream(ms);
+                        }
                     }
                 }
             }
